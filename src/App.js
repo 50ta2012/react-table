@@ -2,6 +2,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table } from 'react-bootstrap';
 import { Pagination } from 'react-bootstrap'
+import React, { useState } from 'react';
 
 function makeTable(value, index){
   return (
@@ -21,13 +22,16 @@ function usersGererator(size){
   return items;
 }
 
-const users = usersGererator(10);
+const users = usersGererator(12);
 
-function makePagination(size){
+function MakePaginationItem(props) {
+  // 一開始就選頁數 1
+  const [active, setActive] = useState(1);
+
   let items = []
-  for(let i = 1; i <= size; i++){
+  for(let i = 1; i <= props.size; i++){
     items.push(
-      <Pagination.Item key={i} onClick={this.props.active = true}>
+      <Pagination.Item key={i} active={i === active} onClick={() => setActive(i)}>
       {i}
     </Pagination.Item>,
     );
@@ -36,13 +40,10 @@ function makePagination(size){
   return items;
 }
 
-let pageOnClick;
+const sizePerPage = 5;
 
-function pageOnClickHandler(page){
-	pageOnClick = page;
-}
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <h1>React Bootstrap Table</h1>
@@ -59,10 +60,10 @@ function App() {
         </tbody>
       </Table>
       <Pagination>
-        {makePagination(10)}
+        <MakePaginationItem size={
+          users.length%sizePerPage === 0 ? users.length/sizePerPage : users.length/sizePerPage + 1
+          } />
       </Pagination>
     </div>
   );
 }
-
-export default App;

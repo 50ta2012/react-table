@@ -4,8 +4,13 @@ import { Table } from 'react-bootstrap';
 import { Pagination } from 'react-bootstrap'
 import React, { useState } from 'react';
 
-const tableData = usersGererator(45);
+const tableData = usersGererator(35);
 const sizePerPage = 5;
+const partTableData = [];
+for(let i = 0; i < tableData.length; i += sizePerPage){
+	partTableData.push( tableData.slice(i, i + sizePerPage) );
+}
+
 
 function makeTable(value, index) {
 	return (
@@ -24,6 +29,13 @@ function usersGererator(size) {
 	}
 	return items;
 }
+
+function MakePartTable(props){
+	const [active, setActive] = useState(props.active - 1);
+
+	return partTableData[active].map(makeTable);
+}
+
 
 function MakePaginationItem(props) {
 	// 一開始就選頁數 1
@@ -125,6 +137,7 @@ export default function App() {
 				</thead>
 				<tbody>
 					{/* {tableData.map(makeTable)} */}
+					<MakePartTable active={1} />
 				</tbody>
 			</Table>
 			<Pagination>

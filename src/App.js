@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap';
 import { Pagination } from 'react-bootstrap'
 import React, { useState } from 'react';
 
-const tableData = usersGererator(35);
+const tableData = usersGererator(45);
 const sizePerPage = 5;
 const partTableData = [];
 for(let i = 0; i < tableData.length; i += sizePerPage){
@@ -47,7 +47,7 @@ function MakePaginationItem(props) {
 	let items = []
 
 	items.push(
-		<Pagination.Prev onClick={() => setActive(active - 1 < 1 ? last : active - 1)} />
+		<Pagination.Prev key={'prev'} onClick={() => setActive(active - 1 < 1 ? last : active - 1)} />
 	);
 
 	if (size < 8) {
@@ -69,7 +69,7 @@ function MakePaginationItem(props) {
 					</Pagination.Item>,
 				);
 			}
-			items.push(<Pagination.Ellipsis disabled/>);
+			items.push(<Pagination.Ellipsis key={'ell'} disabled/>);
 			items.push(
 				<Pagination.Item key={last} active={last === active} onClick={() => setActive(last)}>
 					{last}
@@ -83,7 +83,7 @@ function MakePaginationItem(props) {
 						{first}
 					</Pagination.Item>,
 				);
-				items.push(<Pagination.Ellipsis disabled/>);
+				items.push(<Pagination.Ellipsis key={'ell'} disabled/>);
 				for (let i = last - 4; i <= last; i++) {
 					items.push(
 						<Pagination.Item key={i} active={i === active} onClick={() => setActive(i)}>
@@ -98,7 +98,7 @@ function MakePaginationItem(props) {
 						{first}
 					</Pagination.Item>,
 				);
-				items.push(<Pagination.Ellipsis disabled/>);
+				items.push(<Pagination.Ellipsis key={'ell-1'} disabled/>);
 				for (let i = active - 1; i <= active + 1; i++) {
 					items.push(
 						<Pagination.Item key={i} active={i === active} onClick={() => setActive(i)}>
@@ -106,7 +106,7 @@ function MakePaginationItem(props) {
 						</Pagination.Item>,
 					);
 				}
-				items.push(<Pagination.Ellipsis disabled/>);
+				items.push(<Pagination.Ellipsis key={'ell-2'} disabled/>);
 				items.push(
 					<Pagination.Item key={last} active={last === active} onClick={() => setActive(last)}>
 						{last}
@@ -117,7 +117,7 @@ function MakePaginationItem(props) {
 	}
 
 	items.push(
-		<Pagination.Next onClick={() => setActive(active + 1 > last ? first : active + 1)} />
+		<Pagination.Next key={'next'} onClick={() => setActive(active + 1 > last ? first : active + 1)} />
 	);
 
 	return items;

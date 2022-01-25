@@ -2,16 +2,20 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table } from 'react-bootstrap';
 import { Pagination } from 'react-bootstrap'
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { ActiveContext } from './';
+/* parameter */
+const tableData = usersGererator(100);
 
-const tableData = usersGererator(45);
-const sizePerPage = 5;
+const sizePerPage = 10;
+
+// 切割分頁
 const partTableData = [];
 for(let i = 0; i < tableData.length; i += sizePerPage){
 	partTableData.push( tableData.slice(i, i + sizePerPage) );
 }
 
-
+/* function */
 function makeTable(value, index) {
 	return (
 		<tr key={index}>
@@ -30,16 +34,18 @@ function usersGererator(size) {
 	return items;
 }
 
-function MakePartTable(props){
-	const [active, setActive] = useState(props.active - 1);
+/* component */
+function MakePartTable(){
+	const {active} = useContext(ActiveContext);
+    const index = active - 1;
 
-	return partTableData[active].map(makeTable);
+	return partTableData[index].map(makeTable);
 }
 
 
 function MakePaginationItem(props) {
 	// 一開始就選頁數 1
-	const [active, setActive] = useState(1);
+	const {active, setActive} = useContext(ActiveContext);
 	const first = 1;
 	const last = props.size;
 	const size = props.size;
@@ -123,6 +129,7 @@ function MakePaginationItem(props) {
 	return items;
 }
 
+/* export */
 export default function App() {
 	return (
 		<div className="App">
@@ -136,8 +143,7 @@ export default function App() {
 					</tr>
 				</thead>
 				<tbody>
-					{/* {tableData.map(makeTable)} */}
-					<MakePartTable active={1} />
+					<MakePartTable/>
 				</tbody>
 			</Table>
 			<Pagination>

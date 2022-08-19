@@ -18,7 +18,7 @@ function MakeReactTable(props) {
   // parameter
   const tableData = props.tableData;
   const sizePerPage = props.sizePerPage;
-  const tableHeader = props.tableHeader;
+  const TableHeader = props.tableHeader;
   const tableBody = props.tableBody;
 
 
@@ -125,7 +125,7 @@ function MakeReactTable(props) {
     <>
       <Table striped bordered hover>
         <thead>
-          {tableHeader}
+          <TableHeader />
         </thead>
         <tbody>
           <MakePartTable tableData={tableData} sizePerPage={sizePerPage} tableBody={tableBody} />

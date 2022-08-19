@@ -15,7 +15,7 @@ const tableData = usersGererator(100);
 
 const sizePerPage = 10;
 
-const tableHeader = () => {
+const TableHeader = () => {
   return (
     <tr>
       <th>#</th>
@@ -40,7 +40,7 @@ export default function App() {
   return (
     <div className="App">
       <h1>React Bootstrap Table</h1>
-      <ReactTable tableData={tableData} sizePerPage={sizePerPage} tableHeader={tableHeader} tableBody={tableBody} />
+      <ReactTable tableData={tableData} sizePerPage={sizePerPage} tableHeader={TableHeader} tableBody={tableBody} />
     </div>
   );
 }
